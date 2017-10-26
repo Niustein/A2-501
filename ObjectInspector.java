@@ -32,15 +32,111 @@ public class ObjectInspector
 	Class ObjClass = obj.getClass();
 
 	System.out.println("inside inspector: " + obj + " (recursive = "+recursive+")");
+
+	
+	if(ObjClass.getSuperclass() != null) {
+		System.out.println("Superclass = " + ObjClass.getSuperclass());
+	} else {
+		System.out.println("No superclass");
+	}
+	
 	
 	//inspect the current class
 	inspectFields(obj, ObjClass,objectsToInspect);
+	inspectConstructor(obj, ObjClass, objectsToInspect);
+	inspectMethods(obj, ObjClass, objectsToInspect);
+	inspectInterfaces(obj, ObjClass, objectsToInspect);
 	
 	if(recursive)
 	    inspectFieldClasses( obj, ObjClass, objectsToInspect, recursive);
-	   
     }
+    
     //-----------------------------------------------------------
+
+    public void inspectConstructor (Object obj, Class ObjClass, Vector objectsToInspect) {
+    	System.out.println("Start constructor");
+    	
+    	Constructor[] cons = ObjClass.getDeclaredConstructors();
+    	
+    	if(ObjClass.getConstructors().length != 0) {
+    		for (int i=0; i < cons.length; i++) {
+    			Constructor info = cons[i];
+    			Class[] paramType = info.getParameterTypes();
+    			String mod = Modifier.toString(info.getModifiers());
+    			System.out.println("Constructor modifiers are: " + mod);
+    			System.out.println("Constructor parameters are: ");
+    			
+    			for (Class parameter:paramType) {
+    				System.out.println(parameter.getName() + " ");
+    			}
+    			
+    		}
+    	} else {
+    		System.out.println("No constructor");
+    	}
+    	
+    	System.out.println("End Constructor");
+    }
+    
+    //-----------------------------------------------------------
+    
+    public void inspectInterfaces (Object obj, Class ObjClass, Vector objectsToInspect) {
+    	System.out.println("Start Interface");
+    	
+    	Class[] interfaces = ObjClass.getInterfaces();
+    	
+    	if(ObjClass.getInterfaces() != null) {
+    		for (int i=0; i < interfaces.length; i++) {
+    			Class interfaceProp = interfaces[i];
+    			System.out.println("Interfaces are: " + interfaceProp.getName());
+    		}
+    	} else {
+    		System.out.println("No Interface");
+    	}
+    	
+    	System.out.println("End Interface");
+    }
+    
+    //-----------------------------------------------------------
+    
+    public void inspectMethods(Object obj, Class ObjClass, Vector objectsToInspect) {
+    	System.out.println("Start method");
+    	Method[] method = ObjClass.getDeclaredMethods();
+    	
+    	if (ObjClass.getDeclaredMethods().length != 0) {
+    		for(int i = 0; i < method.length; i++) {
+    			Method methodProp = method[i];
+    			Class returnType = methodProp.getReturnType();
+    			Class[] excep = methodProp.getExceptionTypes();
+    			Class[] paramType = methodProp.getParameterTypes();
+    			String mod = Modifier.toString(methodProp.getModifiers());
+    			
+    			System.out.println("Method modifiers are: " + mod);
+    			System.out.println("Method parameters are: ");
+    			
+    			for (Class parameter:paramType) {
+    				System.out.println(parameter.getName() + " ");
+    			}
+    			
+    			System.out.println("Method exceptions are: ");
+    			
+    			for (Class exception:excep) {
+    				System.out.println(exception.getName() + " ");
+    			}
+    			
+    			System.out.println("Method return type is: " + returnType);
+    			
+    		}
+    	} else {
+    		System.out.println("No methods");
+    	}
+    	
+    	System.out.println("End method");
+    }
+    
+    
+    //-----------------------------------------------------------
+
     private void inspectFieldClasses(Object obj,Class ObjClass,
 				     Vector objectsToInspect,boolean recursive)
     {
