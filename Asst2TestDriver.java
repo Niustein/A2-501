@@ -1,15 +1,10 @@
-package A2;
-/*==========================================================================
-File: Asst2TestDriver.java
-Purpose: Driver program that loads the objects inspector and runs the
-         tests. Verification of tests is done through the inspection
-         of the out from the object inspector loaded at run time.
-
-Location: University of Calgary, Alberta, Canada
-Created By: Jordan Kidney
-Created on:  Oct 23, 2005
-Last Updated: Oct 23, 2005
-========================================================================*/
+/*
+ * Samuel Niu
+ * CPSC 501
+ * Assignemtn #2 - Reflection
+ * This test file was provided by the professor
+ * Tester
+ */
 
 import java.lang.reflect.*;
 
@@ -92,11 +87,11 @@ public class Asst2TestDriver
 			driver.runTest( new ClassD() );
 			driver.runTest( new ClassB[12] );
 			driver.runTest( new ClassB[12][12] );	
-			//driver.runTest( "Test String" );
+			driver.runTest( "Test String" );
 		    }
 		catch(Exception e)
 		    {
-			e.printStackTrace();
+			
 			System.out.println("ERROR: " + e.getMessage());
 			System.out.println("Exiting test driver");
 		    }
