@@ -3,7 +3,7 @@
  * CPSC 501
  * Assignemtn #2 - Reflection
  * The header below was included in the files given by the professor 
- * Part of inspect, inspectField and inspectFieldClass
+ * Part of inspect, inspectField and inspectFieldClass.
  */
 
 
